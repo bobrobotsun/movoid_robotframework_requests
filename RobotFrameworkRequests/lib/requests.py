@@ -8,14 +8,13 @@
 """
 from requests import Response
 
-from .type import TypeRequest, TypeResponse
-
 from typing import Dict
 
-import requests
 from movoid_function import wraps_func
 from movoid_function.type import Type
 from RobotFrameworkBasic import RfError
+
+import requests
 
 
 def simple_check_response_status(response_status: int = 200):
