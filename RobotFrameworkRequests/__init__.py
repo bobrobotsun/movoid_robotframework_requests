@@ -10,5 +10,5 @@ from .main import RobotRequestsBasic
 from .lib import simple_check_response_json_code, simple_check_response_status
 
 
-class RobotFrameworkSelenium(RobotRequestsBasic):
+class RobotFrameworkRequests(RobotRequestsBasic):
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
