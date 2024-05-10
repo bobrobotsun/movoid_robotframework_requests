@@ -32,10 +32,10 @@ class BasicCommon(RobotBasic):
         if url.startswith('http'):
             return url
         else:
-            protocol_text = f'{self._config_config["protocol"]}://' if 'protocol' in self._config_config else 'http://'
-            ip_text = self._config_config["ip"] if "ip" in self._config_config else "127.0.0.1"
-            port_text = f':{self._config_config["port"]}' if "port" in self._config_config else ""
-            path_text = f"/{self._config_config['url_path_header'].strip('/')}" if "url_path_header" in self._config_config else ""
+            protocol_text = f'{self.config["protocol"]}://' if 'protocol' in self.config else 'http://'
+            ip_text = self.config.get("ip", "127.0.0.1")
+            port_text = f':{self.config["port"]}' if "port" in self.config else ""
+            path_text = f"/{self.config['url_path_header'].strip('/')}" if "url_path_header" in self.config else ""
             return f'{protocol_text}{ip_text}{port_text}{path_text}/' + url.lstrip('/')
 
     @robot_log_keyword
