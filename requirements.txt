@@ -1,5 +1,7 @@
 twine
 build
+pytest
+pytest-html
 requests
 psutil
 movoid_function
