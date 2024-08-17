@@ -28,23 +28,11 @@ class BasicCommon(RobotBasic):
         self._request_param = {}
 
     @robot_log_keyword
-    def api_url_check(self, url: str):
-        if url.startswith('http'):
-            return url
-        else:
-            protocol_text = f'{self.config["protocol"]}://' if 'protocol' in self.config else 'http://'
-            ip_text = self.config.get("ip", "127.0.0.1")
-            port_text = f':{self.config["port"]}' if "port" in self.config else ""
-            path_text = f"/{self.config['url_path_header'].strip('/')}" if "url_path_header" in self.config else ""
-            return f'{protocol_text}{ip_text}{port_text}{path_text}/' + url.lstrip('/')
-
-    @robot_log_keyword
     def requests_ori(self, method, url, status=200, **kwargs):
         kwargs.setdefault('headers', self.headers)
-        real_url = self.api_url_check(url)
-        self._request_param = {'method': method, 'url': real_url, **kwargs}
+        self._request_param = {'method': method, 'url': url, **kwargs}
         self.print(f'try to request:{self._request_param}')
-        response = requests.request(method, real_url, **kwargs)
+        response = requests.request(method, url, **kwargs)
         self.print(f'get response success')
         if response.status_code == status:
             self.print(response.text)
