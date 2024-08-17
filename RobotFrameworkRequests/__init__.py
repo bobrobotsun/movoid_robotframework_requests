@@ -7,7 +7,6 @@
 # Description   : 
 """
 from .main import RobotRequestsBasic
-from .lib import simple_check_response_json_code, simple_check_response_status
 
 
 class RobotFrameworkRequests(RobotRequestsBasic):
