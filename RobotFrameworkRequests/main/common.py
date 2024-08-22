@@ -10,15 +10,15 @@ import json
 
 import psutil
 import requests
-from RobotFrameworkBasic import RobotBasic, RfError, robot_log_keyword
+from RobotFrameworkBasic import RobotBasic, RfError
 
 
 class BasicCommon(RobotBasic):
     def __init__(self):
         super().__init__()
-        net_if_addrs = psutil.net_if_addrs()
+        net_if_addresses = psutil.net_if_addrs()
         network_info = []
-        for interface_name, interface_info in net_if_addrs.items():
+        for interface_name, interface_info in net_if_addresses.items():
             for info in interface_info:
                 if info.family == 2:  # 只处理IPv4地址
                     network_info.append({'address': info.address, 'netmask': info.netmask})
@@ -27,15 +27,14 @@ class BasicCommon(RobotBasic):
         }
         self._request_param = {}
 
-    @robot_log_keyword
     def requests_ori(self, method, url, status=200, **kwargs):
         kwargs.setdefault('headers', self.headers)
         self._request_param = {'method': method, 'url': url, **kwargs}
-        self.print(f'try to request:{self._request_param}')
+        print(f'try to request:{self._request_param}')
         response = requests.request(method, url, **kwargs)
-        self.print(f'get response success')
+        print(f'get response success')
         if response.status_code == status:
-            self.print(response.text)
+            print(f'response text:{response.text}')
             return response
         else:
             raise RfError(f'response status is {response.status_code}, not {status}.response is {response.text}.requests is {self._request_param}')
@@ -46,7 +45,6 @@ class BasicCommon(RobotBasic):
     def get_ori(self, url, status=200, **kwargs):
         return self.requests_ori('GET', url, status, **kwargs)
 
-    @robot_log_keyword
     def requests(self, method, url, code=0, status=200, **kwargs):
         response = self.requests_ori(method, url, status, **kwargs)
         res_json = response.json()
