@@ -4,7 +4,7 @@ pytest
 pytest-html
 requests
 psutil
-movoid_function
+movoid_function>=1.7.1
 movoid_package
 movoid_robotframework
 robotframework-requests
