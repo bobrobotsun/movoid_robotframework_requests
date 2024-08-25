@@ -13,3 +13,4 @@ class Test_init:
     def test_init(self):
         rfr = RobotFrameworkRequests()
         rrb = RobotRequestsBasic()
+        rrb.get_ori('http://www.baidu.com')
