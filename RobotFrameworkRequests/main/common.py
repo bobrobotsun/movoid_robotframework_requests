@@ -66,3 +66,23 @@ class BasicCommon(RobotBasic):
 
     def get(self, url, code=0, status=200, **kwargs):
         return self.requests('GET', url, code, status, **kwargs, _log_keyword_structure=False)
+
+    def requests_field(self, method, url, key, code=0, status=200, split='.', show_item_when_key_error=False, **kwargs):
+        code = self.robot_check_param(code, int, 0)
+        res_json = self.requests(method, url, code, status, **kwargs, _log_keyword_structure=False)
+        key_list = self.analyse_key(key, split)
+        for key_index, key_one in enumerate(key_list):
+            try:
+                res_json = res_json[key_one]
+            except Exception as err:
+                print(f'can not find key {key_one}(index {key_index}) when it only has keys:{list(res_json.keys())}')
+                if show_item_when_key_error:
+                    print(res_json)
+                raise err
+        return res_json
+
+    def post_field(self, url, key, code=0, status=200, split='.', show_item_when_key_error=False, **kwargs):
+        return self.requests_field('POST', url, key, code, status, split, show_item_when_key_error, **kwargs)
+
+    def get_field(self, url, key, code=0, status=200, split='.', show_item_when_key_error=False, **kwargs):
+        return self.requests_field('GET', url, key, code, status, split, show_item_when_key_error, **kwargs)
