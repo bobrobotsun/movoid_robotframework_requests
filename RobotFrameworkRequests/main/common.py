@@ -82,7 +82,7 @@ class BasicCommon(RobotBasic):
         return res_json
 
     def post_field(self, url, key, code=0, status=200, split='.', show_item_when_key_error=False, **kwargs):
-        return self.requests_field('POST', url, key, code, status, split, show_item_when_key_error, **kwargs)
+        return self.requests_field('POST', url, key, code, status, split, show_item_when_key_error, **kwargs, _log_keyword_structure=False)
 
     def get_field(self, url, key, code=0, status=200, split='.', show_item_when_key_error=False, **kwargs):
-        return self.requests_field('GET', url, key, code, status, split, show_item_when_key_error, **kwargs)
+        return self.requests_field('GET', url, key, code, status, split, show_item_when_key_error, **kwargs, _log_keyword_structure=False)
