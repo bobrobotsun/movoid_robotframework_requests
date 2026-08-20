@@ -33,7 +33,8 @@ class BasicCommon(RobotBasic):
         status = self.robot_check_param(status, int, 200)
         if 'headers' in kwargs:
             if isinstance(kwargs['headers'], dict):
-                kwargs['headers'].update(self.headers)
+                for k,v in self.headers.items():
+                    kwargs['headers'].setdefault(k, v)
         else:
             kwargs['headers'] = self.headers
         self._request_param = {'method': method, 'url': url, **kwargs}
